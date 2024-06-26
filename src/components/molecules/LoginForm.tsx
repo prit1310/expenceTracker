@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form"
 import { Button } from "../ui/button"
 import { FormField, FormItem, FormLabel, FormControl,FormMessage,Form } from "../ui/form"
 import { Input } from "../ui/input"
+import { Eye, EyeOff } from "lucide-react"
+import { useState } from "react"
  
 const formSchema = z.object({
   email: z.string().email({
@@ -25,7 +27,8 @@ const LoginForm = () => {
     console.log("user login successfull")
   }
 
-
+  const [visibility,setVisibility] = useState("password")
+  
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -49,7 +52,12 @@ const LoginForm = () => {
             <FormItem>
               <FormLabel>Password:</FormLabel>
               <FormControl>
-              <Input placeholder="" {...field} type="password" />
+              <div className="flex items-center">
+            <Input placeholder="" {...field} type={visibility} className="mr-2"/>
+            <Button onClick={() => setVisibility(visibility === "password" ? "text" : "password")}>
+              {visibility === "password" ? <Eye /> : <EyeOff />}
+            </Button>
+          </div>
               </FormControl>
               <FormMessage />
             </FormItem>

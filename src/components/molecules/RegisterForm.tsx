@@ -6,6 +6,8 @@ import { FormField, FormItem, FormLabel, FormControl,FormMessage,Form } from "..
 import { Input } from "../ui/input"
 import {createUserWithEmailAndPassword} from "firebase/auth"
 import {auth} from "../../lib/firebase"
+import { Eye, EyeOff } from "lucide-react"
+import { useState } from "react"
  
 const formSchema = z.object({
   email: z.string().email({
@@ -30,6 +32,7 @@ const RegisterForm = () => {
     console.log("user created")
   }
 
+  const [visibility,setVisibility] = useState("password")
 
   return (
     <Form {...form}>
@@ -54,7 +57,12 @@ const RegisterForm = () => {
             <FormItem>
               <FormLabel>Password:</FormLabel>
               <FormControl>
-              <Input placeholder="" {...field} type="password" />
+              <div className="flex items-center">
+            <Input placeholder="" {...field} type={visibility} className="mr-2"/>
+            <Button onClick={() => setVisibility(visibility === "password" ? "text" : "password")}>
+              {visibility === "password" ? <Eye /> : <EyeOff />}
+            </Button>
+          </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -67,7 +75,12 @@ const RegisterForm = () => {
             <FormItem>
               <FormLabel>Confirnm Password:</FormLabel>
               <FormControl>
-              <Input placeholder="" {...field} type="password" />
+              <div className="flex items-center">
+            <Input placeholder="" {...field} type={visibility} className="mr-2"/>
+            <Button onClick={() => setVisibility(visibility === "password" ? "text" : "password")}>
+              {visibility === "password" ? <Eye /> : <EyeOff />}
+            </Button>
+          </div>
               </FormControl>
               <FormMessage />
             </FormItem>
