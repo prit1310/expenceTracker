@@ -39,6 +39,7 @@ const LoginForm = () => {
       const errorMessage = error.message;
       console.log(errorCode,errorMessage)
       alert("your email or password wrong try again!!")
+      location.reload()
     });
   }
 
