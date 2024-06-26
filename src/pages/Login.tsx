@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom"
 import LoginForm from "../components/molecules/LoginForm"
-import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card"
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "../components/ui/card"
 
 
 const Login = () => {
@@ -15,6 +16,9 @@ const Login = () => {
       <CardContent>
         <LoginForm></LoginForm>
       </CardContent>
+      <CardFooter>
+        <Link to={"/register"}><u>New here? create account</u></Link>
+      </CardFooter>
     </Card>
   </main>
   )

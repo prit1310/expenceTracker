@@ -8,6 +8,7 @@ import {createUserWithEmailAndPassword} from "firebase/auth"
 import {auth} from "../../lib/firebase"
 import { Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
+import { useNavigate} from "react-router-dom"
  
 const formSchema = z.object({
   email: z.string().email({
@@ -18,6 +19,8 @@ const formSchema = z.object({
 })
 
 const RegisterForm = () => {
+  const navigate = useNavigate()  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,6 +33,7 @@ const RegisterForm = () => {
  async function onSubmit(values: z.infer<typeof formSchema>) {
     await createUserWithEmailAndPassword(auth,values.email,values.password)
     console.log("user created")
+    navigate('/login')
   }
 
   const [visibility,setVisibility] = useState("password")

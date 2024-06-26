@@ -6,6 +6,9 @@ import { FormField, FormItem, FormLabel, FormControl,FormMessage,Form } from "..
 import { Input } from "../ui/input"
 import { Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../../lib/firebase"
+import { useNavigate } from "react-router-dom"
  
 const formSchema = z.object({
   email: z.string().email({
@@ -15,6 +18,8 @@ const formSchema = z.object({
 })
 
 const LoginForm = () => {
+  const navigate = useNavigate()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -24,7 +29,17 @@ const LoginForm = () => {
   })
 
  async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("user login successfull")
+     await signInWithEmailAndPassword(auth,values.email,values.password)  .then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user)
+      navigate('/')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode,errorMessage)
+      alert("your email or password wrong try again!!")
+    });
   }
 
   const [visibility,setVisibility] = useState("password")
