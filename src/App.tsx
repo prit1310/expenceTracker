@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import NoPage from './pages/NoPage'
+import Logout from './pages/Logout'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
             <Route index Component={Home}></Route>
             <Route path='/register' Component={Register}></Route>
             <Route path='/login' Component={Login}></Route>
+            <Route path='/logout' Component={Logout}></Route>
             <Route path='*' Component={NoPage}></Route>
           </Routes>
         </BrowserRouter>
