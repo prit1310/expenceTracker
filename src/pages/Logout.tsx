@@ -7,7 +7,7 @@ const Logout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    function logout() {
+   async function logout() {
       signOut(auth)
         .then(() => {
           console.log("User signed out...");
@@ -22,9 +22,8 @@ const Logout = () => {
   }, [navigate]);
 
   return (
-    <div>
-      Logging out...
-    </div>
+    <>
+    </>
   );
 };
 

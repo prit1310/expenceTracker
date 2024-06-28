@@ -36,7 +36,7 @@ const LoginForm = () => {
         setIsLoginSuccessful(true);
         setTimeout(() => {
           navigate("/");
-        }, 2000); 
+        }, 1000); 
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -50,7 +50,7 @@ const LoginForm = () => {
   return (
     <Form {...form}>
       {isLoginSuccessful ? (
-        <div>Login successful! Redirecting to home...</div>
+        <div className="text-green-500 text-4xl">Login successfull!!!</div>
       ) : (
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
