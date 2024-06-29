@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await signInWithEmailAndPassword(auth, values.email, values.password)
-      .then((userCredential) => {
+      .then(() => {
         setIsLoginSuccessful(true);
         setTimeout(() => {
           navigate("/");

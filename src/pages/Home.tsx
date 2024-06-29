@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom"
 import { DocumentData, collection, getDocs } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { db } from "../lib/firebase"
+import DataTableDemo from "./DataPage"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -58,6 +59,12 @@ const Home = () => {
           <TransactionForm />
         </DialogContent>
       </Dialog>
+      <div className="w-full">
+      <h1 className="flex justify-center">Data Table</h1>
+      <div className="w-full">
+        <DataTableDemo data={transactionList} />
+      </div>
+    </div>
     </main>
   )
 }

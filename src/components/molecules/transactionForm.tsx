@@ -42,6 +42,7 @@ const TransactionForm = () => {
       amount: values.amount,
       transactionType: values.transactionType
     });
+    console.log(docRef)
   }
 
 
