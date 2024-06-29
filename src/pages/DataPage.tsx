@@ -1,4 +1,3 @@
-// DataTableDemo.tsx
 import React from "react";
 import {
   ColumnDef,
@@ -36,10 +35,11 @@ import {
 } from "../components/ui/table";
 
 export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
   uid: string;
+  amount: number;
+  title: string;
+  description: string;
+  transactionType: string;
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -131,7 +131,7 @@ export const columns: ColumnDef<Payment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(payment.uid)}
             >
               Copy UID
             </DropdownMenuItem>
