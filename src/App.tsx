@@ -7,7 +7,6 @@ import NoPage from './pages/NoPage'
 import Logout from './pages/Logout'
 
 function App() {
-
   return (
     <>
         <BrowserRouter>

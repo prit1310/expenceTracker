@@ -9,6 +9,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "../../store";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -18,6 +19,7 @@ const formSchema = z.object({
 });
 
 const LoginForm = () => {
+  const {logIn}:any = useStore()
   const navigate = useNavigate();
   const [isLoginSuccessful, setIsLoginSuccessful] = useState(false);
   const [visibility, setVisibility] = useState("password");
@@ -34,6 +36,7 @@ const LoginForm = () => {
     await signInWithEmailAndPassword(auth, values.email, values.password)
       .then(() => {
         setIsLoginSuccessful(true);
+        logIn()
         setTimeout(() => {
           navigate("/");
         }, 1000); 
