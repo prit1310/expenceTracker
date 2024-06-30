@@ -138,7 +138,7 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
       columnVisibility,
       rowSelection,
     },
-    initialState: { pagination: { pageSize: 5 } },
+    initialState: { pagination: { pageSize: 5 }},
   });
 
   return (

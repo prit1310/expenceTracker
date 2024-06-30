@@ -8,7 +8,6 @@ import { auth, db } from "../../lib/firebase"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 import { addDoc, collection } from "firebase/firestore"
 import backGroundTransaction from "../../assets/transactionBack.jpg"
-import { useNavigate } from "react-router-dom"
 
 const formSchema = z.object({
     title: z.string().min(2,{
@@ -31,8 +30,6 @@ const TransactionForm = () => {
     },
   })
 
-  const navigate = useNavigate();
-
  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values,auth.currentUser)
     const docRef = await addDoc(collection(db, "transactions"), {
@@ -43,7 +40,7 @@ const TransactionForm = () => {
       transactionType: values.transactionType
     });
     console.log(docRef)
-    navigate('/')
+    location.replace("/")
   }
 
 
