@@ -141,7 +141,11 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
     initialState: { pagination: { pageSize: 5 }},
   });
 
-  const totalAmount = data.reduce((acc, payment) => acc + parseFloat(payment.amount), 0);
+
+  const totalAmount = data.reduce((acc, payment) => {
+    const amount = parseFloat(payment.amount);
+    return payment.transactionType === "Income" ? acc + amount : acc - amount;
+  }, 0);
 
   return (
     <div className="w-full bg-cover bg-center h-3/4" style={{ backgroundImage: `url(${BackGroundImage})` }}>

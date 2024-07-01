@@ -15,12 +15,17 @@ import { db, auth } from "../lib/firebase";
 import DataTableDemo, { Payment } from "./DataPage";
 import backGroundImage from "../assets/background1.jpg";
 import backGroundImage1 from "../assets/mainBack.jpg";
+import {useStore} from "../store"
 
 const Home = () => {
   const navigate = useNavigate();
+  const {loggedIn}:any = useStore()
+
   const [transactionList, setTransactionList] = useState<DocumentData[]>([]);
 
   function handleClick() {
+    if(!loggedIn)
+      navigate("/login")
     navigate("/logout");
   }
 
