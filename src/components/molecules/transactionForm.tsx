@@ -1,27 +1,13 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { FormField, FormItem, FormLabel, FormControl, FormMessage, Form } from "../ui/form";
 import { Input } from "../ui/input";
 import { auth, db } from "../../lib/firebase";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { addDoc, collection} from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import backGroundTransaction from "../../assets/transactionBack.jpg";
-import { Popover, PopoverTrigger, PopoverContent } from "@radix-ui/react-popover";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { cn } from "../../lib/utils";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
-interface FormValues {
-  title: string;
-  description: string;
-  amount: string;
-  transactionType: string;
-  date: any;
-}
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -30,7 +16,6 @@ const formSchema = z.object({
   description: z.string().optional(),
   amount: z.string(),
   transactionType: z.string(),
-  date: z.date(),
 });
 
 const TransactionForm = () => {
@@ -41,25 +26,19 @@ const TransactionForm = () => {
       description: "",
       amount: "",
       transactionType: "",
-      date: new Date(),
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values, auth.currentUser);
-    const typedValues = values as FormValues;
-    const timestamp = typedValues.date; 
-    const date = timestamp;
-    const formattedDate = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`;
   
     try {
       const docRef = await addDoc(collection(db, "transactions"), {
         uid: auth.currentUser?.uid,
-        title: typedValues.title,
-        description: typedValues.description,
-        amount: typedValues.amount,
-        transactionType: typedValues.transactionType,
-        date: formattedDate,
+        title: values.title,
+        description: values.description,
+        amount: values.amount,
+        transactionType: values.transactionType,
       });
   
       console.log(docRef);
@@ -68,6 +47,7 @@ const TransactionForm = () => {
       console.error("Error adding document: ", error);
     }
   }
+
   return (
     <div
       className="min-h-full bg-cover bg-center flex items-center justify-center py-10"
@@ -156,39 +136,6 @@ const TransactionForm = () => {
                         <FormLabel className="font-normal">Expense</FormLabel>
                       </FormItem>
                     </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="date"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Date</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-[280px] justify-start text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <DatePicker
-                          selected={field.value}
-                          onChange={(date) => field.onChange(date)}
-                          inline
-                        />
-                      </PopoverContent>
-                    </Popover>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

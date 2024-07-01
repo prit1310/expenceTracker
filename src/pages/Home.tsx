@@ -59,7 +59,6 @@ const Home = () => {
     title: doc.title,
     description: doc.description,
     transactionType: doc.transactionType,
-    date:  doc.date,
   }));
 
   return (

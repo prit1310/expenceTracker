@@ -39,7 +39,6 @@ export type Payment = {
   title: string;
   description: string;
   transactionType: string;
-  date: Date;
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -76,13 +75,6 @@ export const columns: ColumnDef<Payment>[] = [
 
       return <div className="capitalize font-medium">{formatted}</div>
     },
-  },
-  {
-    accessorKey: "date",
-    header: "Date",
-    cell: ({ row }) => (
-      <div className="capitalize font-bold">{row.getValue("date")}</div>
-    ),
   },
   {
     id: "actions",
