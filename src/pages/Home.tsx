@@ -59,6 +59,7 @@ const Home = () => {
     title: doc.title,
     description: doc.description,
     transactionType: doc.transactionType,
+    date:  doc.date,
   }));
 
   return (
@@ -70,7 +71,7 @@ const Home = () => {
         className="flex flex-wrap justify-between items-center py-4 bg-white bg-opacity-80 shadow-md"
         style={{ backgroundImage: `url(${backGroundImage})` }}
       >
-        <h1 className="text-xl font-semibold ml-4">Expense Tracker</h1>
+        <h1 className="text-xl font-bold ml-4">Expense Tracker</h1>
         <Button
           onClick={handleClick}
           className="ml-auto mr-4 bg-red-500 font-bold text-white rounded-md shadow-md hover:bg-red-600"

@@ -141,44 +141,54 @@ export function DataTableDemo({ data }: DataTableDemoProps) {
     initialState: { pagination: { pageSize: 5 }},
   });
 
+  const totalAmount = data.reduce((acc, payment) => acc + parseFloat(payment.amount), 0);
+
   return (
     <div className="w-full bg-cover bg-center h-3/4" style={{ backgroundImage: `url(${BackGroundImage})` }}>
-      <div className="flex flex-wrap items-center py-4 px-6 bg-white bg-opacity-80 shadow-md rounded-md">
-        <Input
-          placeholder="Filter title..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto bg-white border border-gray-300 rounded-md shadow-sm">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="bg-white border border-gray-300 rounded-md shadow-lg">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize px-4 py-2 hover:bg-gray-100"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+   
+   <div className="flex flex-wrap items-center justify-between py-4 px-6 bg-white bg-opacity-80 shadow-md rounded-md space-y-4 md:space-y-0">
+  <div className="flex items-center space-x-4">
+    <Input
+      placeholder="Filter title..."
+      value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+      onChange={(event) =>
+        table.getColumn("title")?.setFilterValue(event.target.value)
+      }
+      className="max-w-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    />
+    <div className="font-bold pl-4">
+      Total Amount: {new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "INR",
+      }).format(totalAmount)}
+    </div>
+  </div>
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button variant="outline" className="ml-auto bg-white border border-gray-300 rounded-md shadow-sm">
+        Columns <ChevronDown className="ml-2 h-4 w-4" />
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent align="end" className="bg-white border border-gray-300 rounded-md shadow-lg">
+      {table
+        .getAllColumns()
+        .filter((column) => column.getCanHide())
+        .map((column) => (
+          <DropdownMenuCheckboxItem
+            key={column.id}
+            className="capitalize px-4 py-2 hover:bg-gray-100"
+            checked={column.getIsVisible()}
+            onCheckedChange={(value) =>
+              column.toggleVisibility(!!value)
+            }
+          >
+            {column.id}
+          </DropdownMenuCheckboxItem>
+        ))}
+    </DropdownMenuContent>
+  </DropdownMenu>
+</div>
+
       <div className="rounded-md border shadow-md bg-white bg-opacity-80 mt-4 mx-6">
         <Table>
           <TableHeader>

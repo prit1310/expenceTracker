@@ -37,7 +37,7 @@ const TransactionForm = () => {
       title: values.title,
       description: values.description,
       amount: values.amount,
-      transactionType: values.transactionType
+      transactionType: values.transactionType,
     });
     console.log(docRef)
     location.replace("/")
@@ -45,11 +45,12 @@ const TransactionForm = () => {
 
 
   return (
-    <div className="min-h-screen bg-cover bg-center flex items-center justify-center py-10" style={{ backgroundImage: `url(${backGroundTransaction})`}}>
-    <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg max-w-lg w-full">
-      <h2 className="text-2xl font-semibold text-center mb-6">Add New Transaction</h2>
+    <div className="min-h-full bg-cover bg-center flex items-center justify-center py-10"
+    style={{ backgroundImage: `url(${backGroundTransaction})` }}>
+    <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg max-w-lg w-full mb-16">
+      <h2 className="text-2xl font-semibold text-center mb-4">Add New Transaction</h2>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex flex-col">
           <FormField
             control={form.control}
             name="title"
@@ -57,7 +58,12 @@ const TransactionForm = () => {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter title" {...field} type="text" className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                  <Input
+                    placeholder="Enter title"
+                    {...field}
+                    type="text"
+                    className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -70,7 +76,12 @@ const TransactionForm = () => {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter description" {...field} type="text" className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                  <Input
+                    placeholder="Enter description"
+                    {...field}
+                    type="text"
+                    className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -83,7 +94,12 @@ const TransactionForm = () => {
               <FormItem>
                 <FormLabel>Amount</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter amount" {...field} type="number" className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                  <Input
+                    placeholder="Enter amount"
+                    {...field}
+                    type="number"
+                    className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -105,17 +121,13 @@ const TransactionForm = () => {
                       <FormControl>
                         <RadioGroupItem value="Income" />
                       </FormControl>
-                      <FormLabel className="font-normal">
-                        Income
-                      </FormLabel>
+                      <FormLabel className="font-normal">Income</FormLabel>
                     </FormItem>
                     <FormItem className="flex items-center space-x-3">
                       <FormControl>
                         <RadioGroupItem value="Expense" />
                       </FormControl>
-                      <FormLabel className="font-normal">
-                        Expense
-                      </FormLabel>
+                      <FormLabel className="font-normal">Expense</FormLabel>
                     </FormItem>
                   </RadioGroup>
                 </FormControl>
@@ -123,7 +135,10 @@ const TransactionForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600">
+          <Button
+            type="submit"
+            className="w-full bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600"
+          >
             Submit
           </Button>
         </form>
